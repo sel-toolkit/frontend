@@ -1,0 +1,53 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prepare": "nuxt prepare",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
+    "start": "nuxt start",
+    "typecheck": "vue-tsc"
+  },
+  "devDependencies": {
+    "@nuxt/eslint": "^0.3.13",
+    "@nuxtjs/eslint-config": "^12.0.0",
+    "@nuxtjs/tailwindcss": "^6.6.7",
+    "@tdesign-vue-next/nuxt": "^0.1.5",
+    "@types/node": "^18",
+    "autoprefixer": "^10.4.21",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-tailwindcss": "^3.17.4",
+    "eslint-plugin-vue": "^9.11.1",
+    "nuxt": "^3.15.0",
+    "postcss": "^8.5.3",
+    "prettier": "^2.8.8",
+    "prettier-plugin-tailwindcss": "^0.2.8",
+    "tailwindcss": "3.4.3",
+    "typescript": "5.5.4",
+    "vue-tsc": "^2.2.0"
+  },
+  "dependencies": {
+    "@esbuild/darwin-arm64": "^0.17.18",
+    "@nuxtjs/i18n": "^9.5.3",
+    "@pinia/nuxt": "^0.11.0",
+    "@vueuse/core": "^13.3.0",
+    "esbuild": "^0.17.18",
+    "mitt": "^3.0.0",
+    "nuxt-security": "2.0.0-rc.9",
+    "pinia": "^3.0.2",
+    "pinia-plugin-persistedstate": "^4.2.0",
+    "sass": "^1.59.2",
+    "tdesign-icons-vue-next": "^0.3.3",
+    "tdesign-vue-next": "^1.10.5",
+    "vuedraggable": "^4.1.0"
+  }
+}

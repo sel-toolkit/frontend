@@ -1,0 +1,28 @@
+{
+  "menu": {
+    "registrationGuide": "News",
+    "pastResults": "Past Results",
+    "aboutUs": "About Us",
+    "registForm": "Registration Form",
+    "menu": "Menu",
+    "setting": "Settings",
+    "language": "Language",
+    "login": "Login",
+    "logout": "Logout",
+    "publicMatch": "Public Match",
+    "dashboard": "Dashboard",
+    "profile": "Profile"
+  },
+  "home": {
+    "greet": "Hi, {username}",
+    "welcome": "Welcome to the SEL Toolkits - (Home)",
+    "guest": "Guest"
+  },
+  "team": {
+    "desc": "Description",
+    "githubLink": "Click here to view my GitHub",
+    "role": "Role",
+    "phone": "Phone",
+    "email": "Email"
+  }
+}

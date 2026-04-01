@@ -1,0 +1,28 @@
+{
+  "menu": {
+    "registrationGuide": "最新消息",
+    "pastResults": "歷屆成績",
+    "aboutUs": "關於我們",
+    "registForm": "報名表單",
+    "menu": "選單",
+    "setting": "設定",
+    "language": "語言",
+    "login": "登入",
+    "logout": "登出",
+    "publicMatch": "公開戰局",
+    "dashboard": "儀表板",
+    "profile": "個人資料"
+  },
+  "home": {
+    "greet": "Hi, {username}",
+    "welcome": "歡迎來到 SEL 工具包 - (首頁)",
+    "guest": "訪客"
+  },
+  "team": {
+    "desc": "描述",
+    "githubLink": "點擊觀看我的 GitHub",
+    "role": "職務",
+    "phone": "電話",
+    "email": "信箱"
+  }
+}
