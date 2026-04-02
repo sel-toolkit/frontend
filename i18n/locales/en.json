@@ -18,6 +18,14 @@
     "welcome": "Welcome to the SEL Toolkits - (Home)",
     "guest": "Guest"
   },
+  "error": {
+    "404": {
+      "title": "404 Page Not Found",
+      "heading": "We have a 'purrr'-blem......",
+      "description": "Looks like you drifted into a dimension with no cat food, just like me."
+    },
+    "backHome": "Back to Home"
+  },
   "team": {
     "desc": "Description",
     "githubLink": "Click here to view my GitHub",

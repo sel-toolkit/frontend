@@ -12,22 +12,22 @@
     <!-- Bottom half: text content -->
     <div class="h-1/2 w-full flex flex-col px-6 overflow-y-auto">
       <template v-if="error?.statusCode === 404">
-        <h1 class="text-[3.375rem] mobile:text-[2.25rem] small-mobile:text-xl landscape-phone:text-lg font-bold text-gray-900 text-center pt-16 mobile:pt-12 small-mobile:pt-2 landscape-phone:pt-1">404 頁面不存在</h1>
+        <h1 class="text-[3.375rem] mobile:text-[2.25rem] small-mobile:text-xl landscape-phone:text-lg font-bold text-gray-900 text-center pt-16 mobile:pt-12 small-mobile:pt-2 landscape-phone:pt-1">{{ $t('error.404.title') }}</h1>
         <div class="flex-1 flex flex-col items-center justify-center gap-6 small-mobile:gap-2 landscape-phone:gap-1">
           <p class="text-2xl mobile:text-xl small-mobile:text-base landscape-phone:text-sm font-bold text-gray-800 text-center">
-            我們有個『喵』題......
+            {{ $t('error.404.heading') }}
           </p>
           <p class="text-base mobile:text-sm small-mobile:text-xs landscape-phone:text-xs text-gray-500 text-center leading-relaxed">
-            看來你跟我一樣，都漂流到沒有罐罐的維度了。
+            {{ $t('error.404.description') }}
           </p>
-          <t-button theme="primary" class="mt-auto mb-4" @click="handleGoHome">回到首頁</t-button>
+          <t-button theme="primary" class="mt-auto mb-4" @click="handleGoHome">{{ $t('error.backHome') }}</t-button>
         </div>
       </template>
       <template v-else>
         <div class="flex-1 flex flex-col items-center justify-center gap-4 mb-2">
           <h1 class="text-6xl font-bold text-red-500">{{ error?.statusCode }}</h1>
           <p class="text-lg text-gray-600 text-center">{{ error?.message }}</p>
-          <t-button theme="primary" class="pb-4" @click="handleGoHome">回到首頁</t-button>
+          <t-button theme="primary" class="pb-4" @click="handleGoHome">{{ $t('error.backHome') }}</t-button>
         </div>
       </template>
     </div>

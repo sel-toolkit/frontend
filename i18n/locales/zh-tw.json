@@ -18,6 +18,14 @@
     "welcome": "歡迎來到 SEL 工具包 - (首頁)",
     "guest": "訪客"
   },
+  "error": {
+    "404": {
+      "title": "404 頁面不存在",
+      "heading": "我們有個『喵』題......",
+      "description": "看來你跟我一樣，都漂流到沒有罐罐的維度了。"
+    },
+    "backHome": "回到首頁"
+  },
   "team": {
     "desc": "描述",
     "githubLink": "點擊觀看我的 GitHub",
