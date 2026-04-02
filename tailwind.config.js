@@ -22,6 +22,7 @@ export default {
         "mini-desktop": { min: "1280px" }, // 1280 以上
         desktop: { min: "1366px" }, // 1366 以上
         "large-desktop": { min: "1920px" }, // 1920 以上
+        "landscape-phone": { raw: "(max-height: 430px)" },
         short: { raw: "(max-height: 700px)" },
         tall: { raw: "(min-height: 1000px)" },
       },
