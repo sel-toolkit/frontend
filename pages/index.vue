@@ -5,24 +5,23 @@
       :header-bordered="true"
       class="flex items-center justify-center font-bold text-3xl size-full rounded-3xl"
     >
-      <div>{{ $t('home.greet', { username }) }}</div>
-      <div>{{ $t('home.welcome') }}</div>
+      <div class="flex flex-col items-center gap-2">
+        <div>{{ $t("home.greet", { username: teacherName }) }}</div>
+        <div>{{ $t("home.welcome") }}</div>
+        <div class="text-sm font-normal text-gray-600 mt-2">
+          {{ teacherEmail }}
+        </div>
+      </div>
     </t-card>
   </ViewLayout>
 </template>
 
 <script setup lang="ts">
-const username = ref("");
+const authStore = useAuthStore();
 const { t } = useI18n();
+const teacherName = computed(() => authStore.teacher?.name ?? t("home.guest"));
+const teacherEmail = computed(() => authStore.teacher?.email ?? "-");
 
-onMounted(async () => {
-  // TODO: remove annotation after login is implemented
-  // if (user.isLogin) {
-  //   username.value = user.user.username;
-  // } else {
-    username.value = t('home.guest');
-  // }
-});
 </script>
 
 <style scoped>
