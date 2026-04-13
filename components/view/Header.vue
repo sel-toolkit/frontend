@@ -20,6 +20,30 @@
 
       <template #operations>
         <t-space class="flex items-center gap-4">
+          <t-space class="items-center gap-2 mobile:!hidden">
+            <span
+              v-if="authStore.isAuthenticated"
+              class="text-sm text-gray-700 font-medium"
+            >
+              {{ authStore.teacher?.name }}
+            </span>
+            <t-button
+              v-if="authStore.isAuthenticated"
+              theme="primary"
+              variant="text"
+              @click="handleLogout"
+            >
+              登出
+            </t-button>
+            <t-button
+              v-else
+              theme="primary"
+              variant="text"
+              @click="handleLogin"
+            >
+              登入
+            </t-button>
+          </t-space>
           <t-switch
             :model-value="checked"
             size="large"
@@ -81,6 +105,19 @@
     <template #footer>
       <div class="flex flex-col w-full">
         <div class="flex justify-center mb-2">
+          <t-button
+            v-if="authStore.isAuthenticated"
+            theme="primary"
+            block
+            @click="handleLogout"
+          >
+            {{ authStore.teacher?.name }} / 登出
+          </t-button>
+          <t-button v-else theme="primary" block @click="handleLogin">
+            登入
+          </t-button>
+        </div>
+        <div class="flex justify-center mb-2">
           <t-switch
             :model-value="checked"
             size="large"
@@ -131,6 +168,7 @@ type LocaleCode = "zh-tw" | "en";
 
 const i18NStore = useLangStore();
 const themeStore = useThemeStore();
+const authStore = useAuthStore();
 const isDrawerVisible = ref(false);
 const checked = computed({
   get: () => themeStore.mode === "dark",
@@ -150,6 +188,27 @@ const onChangeSwitch: SwitchProps["onChange"] = (val) => {
 
 const goTo = async (path: string) => {
   return navigateTo(path);
+};
+
+const handleLogin = async () => {
+  isDrawerVisible.value = false;
+  await navigateTo({
+    path: "/login",
+    query: {
+      redirect: useRoute().fullPath,
+    },
+  });
+};
+
+const handleLogout = async () => {
+  try {
+    await authStore.logout();
+    isDrawerVisible.value = false;
+    await navigateTo("/login");
+    await MessagePlugin.success("已登出");
+  } catch {
+    await MessagePlugin.error("登出失敗，請稍後再試。");
+  }
 };
 
 const i18nOptions: I18NOption[] = [

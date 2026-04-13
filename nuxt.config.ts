@@ -1,6 +1,26 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { defineNuxtConfig } from "nuxt/config";
 
+const isDev = process.env.NODE_ENV !== "production";
+const apiBaseUrl = process.env.NUXT_API_BASE_URL || "http://localhost:8001";
+const baseUrl = process.env.NUXT_BASE_URL || "http://localhost:3000";
+const wsBaseUrl = process.env.NUXT_WS_BASE_URL || "ws://localhost:8001";
+
+// CSP connect-src 需要根据环境不同
+const connectSrcUrls = [
+  "'self'",
+  apiBaseUrl,
+  wsBaseUrl,
+  "https://accounts.google.com",
+  "https://oauth2.googleapis.com",
+  "https://www.googleapis.com",
+];
+
+// 本地环境额外加 localhost:8001
+if (isDev) {
+  connectSrcUrls.push("http://localhost:8001", "ws://localhost:8001");
+}
+
 export default defineNuxtConfig({
   modules: [
     "@nuxtjs/tailwindcss",
@@ -13,7 +33,7 @@ export default defineNuxtConfig({
   ],
   security: {
     corsHandler: {
-      origin: process.env.NUXT_BASE_URL,
+      origin: baseUrl,
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       allowHeaders: ["Content-Type", "Authorization"],
       credentials: true,
@@ -24,13 +44,13 @@ export default defineNuxtConfig({
     },
     headers: {
       referrerPolicy: "strict-origin-when-cross-origin",
+      crossOriginOpenerPolicy: { policy: "same-origin-allow-popups", reportOnly: false },
       contentSecurityPolicy: {
         "default-src": ["'self'"],
-        "connect-src": [
-          "'self'",
-          process.env.NUXT_API_BASE_URL,
-          process.env.NUXT_WS_BASE_URL,
-        ],
+        // Nuxt hydration relies on inline bootstrap scripts, so keep unsafe-inline here.
+        "script-src": ["'self'", "'unsafe-inline'", "https://accounts.google.com"],
+        "frame-src": ["'self'", "https://accounts.google.com", "https://accounts.google.com/gsi/"],
+        "connect-src": connectSrcUrls,
       },
     },
   },
@@ -46,7 +66,7 @@ export default defineNuxtConfig({
     transpile: ["tdesign-vue-next"],
   },
   devServer: {
-    host: "127.0.0.1",
+    host: "localhost",
     port: 3000,
   },
   app: {
@@ -62,9 +82,10 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBaseUrl: process.env.NUXT_API_BASE_URL,
-      siteUrl: process.env.NUXT_BASE_URL,
-      nuxtHttp: process.env.NUXT_HTTP
+      apiBaseUrl: apiBaseUrl,
+      siteUrl: baseUrl,
+      nuxtHttp: process.env.NUXT_HTTP || "http",
+      googleClientId: process.env.NUXT_GOOGLE_CLIENT_ID,
     },
   },
   compatibilityDate: "2024-11-01",
