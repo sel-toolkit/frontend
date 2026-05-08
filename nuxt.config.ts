@@ -88,5 +88,8 @@ export default defineNuxtConfig({
       googleClientId: process.env.NUXT_GOOGLE_CLIENT_ID,
     },
   },
+  imports: {
+    dirs: ["composables/auth"],
+  },
   compatibilityDate: "2024-11-01",
 });

@@ -57,6 +57,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ auth: false });
 const { locale } = useI18n();
 const computedMembers = computed(() =>
   members.map((member) => translateMember(member, locale.value))

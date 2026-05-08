@@ -1,17 +1,4 @@
-export interface Teacher {
-  id: number;
-  email: string;
-  name: string;
-  avatarUrl: string;
-}
-
-interface GoogleLoginResponseData {
-  teacher: Teacher;
-}
-
-interface MeResponseData {
-  teacher: Teacher;
-}
+import type { Teacher } from "~/composables/auth/useAuthMe";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
@@ -30,14 +17,8 @@ export const useAuthStore = defineStore("auth", {
       this.isLoading = true;
 
       try {
-        const api = useApi();
-        const response = await api<{
-          code: number;
-          message: string;
-          data: MeResponseData;
-        }>("/api/v1/auth/me");
-
-        this.teacher = response.data.teacher;
+        const { fetchMe } = useAuthMe();
+        this.teacher = await fetchMe();
         this.isReady = true;
         return this.teacher;
       } catch (error) {
@@ -67,17 +48,8 @@ export const useAuthStore = defineStore("auth", {
       this.isLoading = true;
 
       try {
-        const api = useApi();
-        const response = await api<{
-          code: number;
-          message: string;
-          data: GoogleLoginResponseData;
-        }>("/api/v1/auth/google/login", {
-          method: "POST",
-          body: { idToken },
-        });
-
-        this.teacher = response.data.teacher;
+        const { loginWithGoogle } = useGoogleLogin();
+        this.teacher = await loginWithGoogle(idToken);
         this.isReady = true;
         return this.teacher;
       } finally {
@@ -85,15 +57,9 @@ export const useAuthStore = defineStore("auth", {
       }
     },
     async logout() {
-      const api = useApi();
-
       try {
-        await api<{ code: number; message: string; data: Record<string, never> }>(
-          "/api/v1/auth/logout",
-          {
-            method: "POST",
-          }
-        );
+        const { logout } = useAuthLogout();
+        await logout();
       } finally {
         this.teacher = null;
         this.isReady = true;
