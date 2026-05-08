@@ -5,6 +5,8 @@ export interface Teacher {
   avatarUrl: string;
 }
 
+export type TeacherProfile = Omit<Teacher, "id">;
+
 interface MeResponse {
   code: number;
   message: string;
