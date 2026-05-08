@@ -1,8 +1,10 @@
-import type { Teacher } from "~/composables/auth/useAuthMe";
+import type { Teacher, TeacherProfile } from "~/composables/auth/useAuthMe";
+
+const toProfile = ({ id: _, ...profile }: Teacher): TeacherProfile => profile;
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
-    teacher: null as Teacher | null,
+    teacher: null as TeacherProfile | null,
     isReady: false,
     isLoading: false,
   }),
@@ -11,14 +13,14 @@ export const useAuthStore = defineStore("auth", {
   },
   actions: {
     setTeacher(teacher: Teacher | null) {
-      this.teacher = teacher;
+      this.teacher = teacher ? toProfile(teacher) : null;
     },
     async fetchMe() {
       this.isLoading = true;
 
       try {
         const { fetchMe } = useAuthMe();
-        this.teacher = await fetchMe();
+        this.teacher = toProfile(await fetchMe());
         this.isReady = true;
         return this.teacher;
       } catch (error) {
@@ -49,7 +51,7 @@ export const useAuthStore = defineStore("auth", {
 
       try {
         const { loginWithGoogle } = useGoogleLogin();
-        this.teacher = await loginWithGoogle(idToken);
+        this.teacher = toProfile(await loginWithGoogle(idToken));
         this.isReady = true;
         return this.teacher;
       } finally {
@@ -70,5 +72,9 @@ export const useAuthStore = defineStore("auth", {
       this.isReady = false;
       this.isLoading = false;
     },
+  },
+  persist: {
+    pick: ["teacher"],
+    storage: piniaPluginPersistedstate.localStorage(),
   },
 });
