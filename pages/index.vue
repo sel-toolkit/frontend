@@ -17,6 +17,8 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ auth: "optional" });
+
 const authStore = useAuthStore();
 const { t } = useI18n();
 const teacherName = computed(() => authStore.teacher?.name ?? t("home.guest"));

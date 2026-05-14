@@ -1,4 +1,6 @@
 export default defineNuxtRouteMiddleware(async (to) => {
+  if (to.matched.length === 0) return;
+
   const authStore = useAuthStore();
   const isLoginPage = to.path === "/login";
   const authMeta = to.meta.auth;
@@ -6,11 +8,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const isOptionalRoute = authMeta === "optional";
 
   if (!isPublicRoute) {
-    try {
-      await authStore.fetchMe();
-    } catch {
-      // fetchMe already clears the local session state when the backend returns 401.
-    }
+    await authStore.ensureSession();
   }
 
   if (authStore.isAuthenticated && isLoginPage) {
